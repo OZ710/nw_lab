@@ -62,7 +62,7 @@ void mergesort(int arr[],int l,int r)
 }
 void* merge_sort(void* arg)
 {
-    int tpart = part++;
+    part++;
     int l,r;
     if(part==1)
     {
@@ -76,10 +76,9 @@ void* merge_sort(void* arg)
     }
     mergesort(arr,l,r);
 }
-void* merge_(void* arg)
-{
-    merge(arr,0,n/2-1,n-1);
-}
+
+    
+
 int main()
 {
     printf("Array size: ");
@@ -90,21 +89,24 @@ int main()
         scanf("%d",&arr[i]);
     }
 
-    pthread_t threads[3];
+    pthread_t threads[2];
     for(int i=0;i<2;i++)
     {
         pthread_create(&threads[i],NULL,merge_sort,(void*) NULL);
     }
-     pthread_create(&threads[2],NULL,merge_,(void*) NULL);
+    
 
-    for(int i=0;i<3;i++)
+    for(int i=0;i<2;i++)
     {
         pthread_join(threads[i],NULL);
     } 
+    merge(arr,0,n/2-1,n-1);
     printf("Sorted Array: ");
     for(int i=0;i<n;i++)
-    {
-        printf("%d ",arr[i]);
+    {    
+    
+    
+     printf("%d ",arr[i]);
     }
     printf("\n");
 }

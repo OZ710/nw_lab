@@ -54,7 +54,7 @@ void *consumer(void *arg)
             exit(1);
         }
         sleep(2);
-        printf("consumer %d has consumed %d in slot %d\n",id,nextConsumed,in);
+        printf("consumer %d has consumed %d in slot %d\n",id,nextConsumed,out);
         buffer[out]=-1;
         out=(out+1)%b_size;
         sem_post(&mutex);
@@ -93,6 +93,6 @@ int main()
     for(i=0;i<max;i++)
         pthread_join(tid[i],NULL);
 
-        return 0;
+       return 0;
 
 }

@@ -54,6 +54,9 @@ int main()
             printf("\n");    
         }    
     printf("\n");
+    int x=r*c;
+    int y=0;
+    pthread_t tid[x];
     for(i=0;i<r;i++)
     {
         for(j=0;j<c;j++)
@@ -62,16 +65,22 @@ int main()
             
                 mat->i=i;
                 mat->j=j;
-                pthread_t tid;
-                pthread_create(&tid,NULL,mult,(void *)mat );
-                pthread_join(tid,NULL);
+                
+                pthread_create(&tid[y],NULL,mult,(void *)mat );
+                y++;
+                
                 
         }
+        
     }
+    for(i=0;i<x;i++)
+    	pthread_join(tid[i],NULL);
+    printf("Product: \n");
     for(i=0;i<r;i++)
         {
             for(j=0;j<c;j++)
                 printf("%d ",ans[i][j]);
+                    
             printf("\n");    
         }  
     return 0;         
