@@ -1,8 +1,10 @@
+
 #include<stdio.h>
 #include<unistd.h>
 #include<sys/types.h>
 #include<stdlib.h>
 #include<sys/wait.h>
+#include<string.h>
 
 int main()
 {
@@ -10,6 +12,7 @@ int main()
 	char sen[100];
 	printf("Enter the sentence\n");
 	fgets(sen,100,stdin);
+    printf("%s\n",sen);
 	pid_t p;
 	if(pipe(p1)==-1)
 	{
@@ -30,9 +33,8 @@ int main()
 	}
 	else if(p>0)
 	{
-		fgets(sen,100,stdin);
 		close(p1[0]);
-		write(p1[1],sen,strlen(sen)+1);
+		write(p1[1],sen,strlen(sen));
 		close(p1[1]);
 		wait(NULL);
 		close(p2[1]);
@@ -42,7 +44,7 @@ int main()
 		printf("The character count is %d\n",ccount);
 		printf("The word count is %d\n",wcount);
 		printf("The line count is %d\n",lcount);
-		close(p2[1]);
+		close(p2[0]);
 	}
 
 	else
@@ -70,5 +72,8 @@ int main()
 		write(p2[1],&wcount,sizeof(wcount));
 		write(p2[1],&lcount,sizeof(lcount));
 		close(p2[1]);
+        exit(0);
 	}
 }
+
+
