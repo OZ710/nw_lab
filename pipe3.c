@@ -9,9 +9,7 @@
 int main()
 {
 	int p1[2],p2[2];
-	char sen[100];
-	printf("Enter the sentence\n");
-	fgets(sen,200,stdin);
+	char s[]="hala";
 	pid_t p;
 	if(pipe(p1)==-1)
 	{
@@ -23,7 +21,6 @@ int main()
 		printf("pipe failed\n");
 		exit(0);
 	}
-	int ccount=0,wcount=1,lcount=0,i=0;
 	p = fork();
 	if(p<0)
 	{
@@ -33,7 +30,7 @@ int main()
 	else if(p>0)
 	{
 		close(p1[0]);
-		write(p1[1],sen,strlen(sen)+1);
+		write(p1[1],s,strlen(s)+1);
 		close(p1[1]);
 		
 		close(p2[1]);
@@ -51,16 +48,11 @@ int main()
 		char out[100];
 		close(p1[1]);
 		read(p1[0],out,100);
-		
+		char t[]="madrid";
+		int l=strlen(
 		while(i<strlen(out))
 		{
-			if(out[i]!=' ')
-				ccount++;
-			if(out[i]==' ')
-				wcount++;
-			if(out[i]=='.')
-				lcount++;
-			i++;
+			
 		}
 		FILE *f;
 		f=fopen("sentences.txt","w");
