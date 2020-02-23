@@ -32,38 +32,41 @@ int main()
 		close(p1[0]);
 		write(p1[1],s,strlen(s)+1);
 		close(p1[1]);
-		
+		wait(NULL);
 		close(p2[1]);
-		read(p2[0],&ccount,sizeof(ccount));
-		read(p2[0],&wcount,sizeof(wcount));
-		read(p2[0],&lcount,sizeof(lcount));
-		printf("The character count is %d\n",ccount-1);
-		printf("The word count is %d\n",wcount);
-		printf("The line count is %d\n",lcount);
+		char op[100];
+		read(p2[0],op,100);
 		close(p2[0]);
+		printf("%s\n",op);
 	}
 
 	else
 	{
 		char out[100];
+		
+		int i=0;
 		close(p1[1]);
 		read(p1[0],out,100);
 		char t[]="madrid";
-		int l=strlen(
-		while(i<strlen(out))
+		int l = strlen(t);
+		int m = strlen(out);
+		int j=m,p=(m+l)-1;
+		char in[p];
+		while(i<m)
 		{
-			
+			in[i]=out[i];
+			i++;
 		}
-		FILE *f;
-		f=fopen("sentences.txt","w");
-		if(lcount==0)
-			lcount=1;
-		fprintf(f, "%d\n%d\n%d\n",ccount-1,wcount,lcount );
-		fclose(f);
+		i=0;
+		while(i<l)
+		{
+			in[j]=t[i];
+			i++;
+			j++;
+		}
+		in[j]='\0';
 		close(p2[0]);
-		write(p2[1],&ccount,sizeof(ccount));
-		write(p2[1],&wcount,sizeof(wcount));
-		write(p2[1],&lcount,sizeof(lcount));
+		write(p2[1],in,strlen(in)+1);
 		close(p2[1]);
         exit(0);
 	}
